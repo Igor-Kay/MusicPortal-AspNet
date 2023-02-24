@@ -44,14 +44,14 @@ namespace MusicPortal.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2b4b33a7-9b93-407d-8e2e-c32d27535730",
-                            ConcurrencyStamp = "ece90a3a-1cf7-4f8e-95cf-d4443ccab623",
+                            Id = "dc18ec0a-18dc-4468-8cb3-b4f239fde221",
+                            ConcurrencyStamp = "6b2b7cf1-334c-4f26-8780-57c9b5284c86",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "8ca20e72-41c1-4f7f-8824-41f50393eb5e",
-                            ConcurrencyStamp = "0ddb14b1-5e2b-4737-b697-da509216ab69",
+                            Id = "99e7516f-6377-4b32-a003-6036790a6641",
+                            ConcurrencyStamp = "d2126dd6-c194-4386-a1e2-670896f92b9e",
                             Name = "User"
                         });
                 });
@@ -261,8 +261,32 @@ namespace MusicPortal.DAL.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<DateTime?>("Age")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Biography")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("NickName")
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("imagePath")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("linkInstagram")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("linkOther")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("linkVK")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("linkYouTube")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("mainGenre")
+                        .HasColumnType("INTEGER");
 
                     b.HasDiscriminator().HasValue("Author");
                 });

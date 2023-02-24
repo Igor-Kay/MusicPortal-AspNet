@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using MusicPortal.DAL.Models;
+using MusicPortal.WEB.Models.ViewModels;
 
 namespace MusicPortal.WEB.Areas.Identity.Pages.Account
 {

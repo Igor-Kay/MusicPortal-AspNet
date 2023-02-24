@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using MusicPortal.WEB.Models.ViewModels;
 using MusicPortal.DAL.Models;
 
 namespace MusicPortal.WEB.Areas.Identity.Pages.Account

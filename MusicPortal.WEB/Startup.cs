@@ -54,9 +54,12 @@ namespace MusicPortal.WEB
             )
             .AddEntityFrameworkStores<AppDbContext>();
 
-            services.AddAutoMapper(typeof(HuetaProfile));
+            services.AddAutoMapper(typeof(MusicProfile));
+            services.AddAutoMapper(typeof(AuthorProfile));
+
             services.AddScoped<IUnitOfWork, EFUnitOfWork>();
             services.AddScoped<IMusicService, MusicServices>();
+            services.AddScoped<IAuthorService, AuthorService>();
 
             services.AddRazorPages();
             services.AddControllersWithViews();

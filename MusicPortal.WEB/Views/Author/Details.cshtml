@@ -1,0 +1,49 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model MusicPortal.WEB.Models.ViewModels.AuthorVM
+<section>
+    <div class="container">
+        <h3>Author: @Model.NickName  Genre: @Model.mainGenre</h3>
+        <a>Age: @Model.Age</a><br />
+        <a>Bio: @Model.Biography</a><br />
+        <a href="@Model.linkInstagram">Instagram</a><br />
+        <a href="@Model.linkYouTube">Youtube</a><br />
+        <a href="@Model.linkVK">Vk</a><br />
+        <a href="@Model.linkOther">Other</a><br />
+        
+    
+
+
+            <h3 class="h3">
+                Musics:
+            </h3>
+                @foreach (var item in ViewBag.MusicsAuthor)
+                {
+                                                                        
+                        <h5>Music: @item.Name</h5>
+                        <div>
+                            <a class="">Жанр: @item.Genre</a><br />           
+                        </div>
+                            <div class="audio-player">
+                                <audio id="audio-player" src="@wc.MusicPath@item.filesMusic" type="audio/mp3" controls="controls"></audio>
+                            </div>
+  
+                }
+    </div>
+</section>
+@section Scripts{
+        <script>
+            $(document).ready(function () {
+                $('#audio-player').mediaelementplayer({
+                    alwaysShowControls: true,
+                    features: ['playpause', 'volume', 'progress'],
+                    audioVolume: 'horizontal',
+                    audioWidth: 400,
+                    audioHeight: 120
+                });
+            });
+        </script>
+}
