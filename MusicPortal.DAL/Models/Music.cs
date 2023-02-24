@@ -25,6 +25,8 @@ namespace MusicPortal.DAL.Models
 
         public string AuthorId { get; set; }
         public Author? Author { get; set; }
+
+        public string filesMusic { get; set; }
         
     }
 }

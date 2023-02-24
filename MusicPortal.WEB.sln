@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicPortal.DAL", "MusicPor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicPortal.BLL", "MusicPortal.BLL\MusicPortal.BLL.csproj", "{8E3896A2-11BC-49DD-8B7C-B7EE4C335426}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{EA6681BF-3399-40BC-BD9F-75A6AB75AE2E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{8E3896A2-11BC-49DD-8B7C-B7EE4C335426}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E3896A2-11BC-49DD-8B7C-B7EE4C335426}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E3896A2-11BC-49DD-8B7C-B7EE4C335426}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EA6681BF-3399-40BC-BD9F-75A6AB75AE2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA6681BF-3399-40BC-BD9F-75A6AB75AE2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA6681BF-3399-40BC-BD9F-75A6AB75AE2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA6681BF-3399-40BC-BD9F-75A6AB75AE2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
