@@ -105,33 +105,39 @@ namespace MusicPortal.WEB.Controllers
             
             if (musicVM.Id == default)
             {
-                musicVM.Id = Guid.NewGuid();
-                musicVM.Author = await _userManager.FindByNameAsync(AuthorId);
-
-                var files = HttpContext.Request.Form.Files;
-                string webRootPath = _webHostEnvironment.WebRootPath;
-
-                string upload = webRootPath + wc.MusicPath;
-                string fileName = Guid.NewGuid().ToString();
-                string ext = Path.GetExtension(files[0].FileName);
-
-                using (var fileStream = new FileStream(Path.Combine(upload, fileName + ext), FileMode.Create))
+                try
                 {
-                    files[0].CopyTo(fileStream);
-                }
-                if(ext == ".mp3")
-                {
-                    musicVM.filesMusic = fileName + ext;
-                    await _musicService.AddAsync(_mapper.Map<MusicDTO>(musicVM));
-                }
-                else
-                {
+                    musicVM.Id = Guid.NewGuid();
+                    musicVM.Author = await _userManager.FindByNameAsync(AuthorId);
 
+                    var files = HttpContext.Request.Form.Files;
+                    string webRootPath = _webHostEnvironment.WebRootPath;
+
+                    string upload = webRootPath + wc.MusicPath;
+                    string fileName = Guid.NewGuid().ToString();
+                    string ext = Path.GetExtension(files[0].FileName);
+
+                    using (var fileStream = new FileStream(Path.Combine(upload, fileName + ext), FileMode.Create))
+                    {
+                        files[0].CopyTo(fileStream);
+                    }
+                    if (ext == ".mp3")
+                    {
+                        musicVM.filesMusic = fileName + ext;
+                        await _musicService.AddAsync(_mapper.Map<MusicDTO>(musicVM));
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
-                
+                catch(Exception ex)
+                {
+                    return RedirectToAction("Index");
+                }
 
             }
-            
+
             return RedirectToAction("Index");
         }
 

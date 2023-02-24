@@ -5,10 +5,11 @@
         <h3>Music: @Model.Name</h3>
         <div>
             <a class="">Жанр: @Model.Genre</a><br />
-            <a>Трек: @Model.filesMusic</a>
-            
-            
+            <a>Трек: @Model.filesMusic</a>            
         </div>
+            <div class="audio-player">
+                <audio id="audio-player" src="@wc.MusicPath@Model.filesMusic" type="audio/mp3" controls="controls"></audio>
+            </div>
     </section>
     <!-- кнопки администрирования -->
     <section>
@@ -17,3 +18,16 @@
     </section>
     </div>
 </main>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#audio-player').mediaelementplayer({
+                alwaysShowControls: true,
+                features: ['playpause', 'volume', 'progress'],
+                audioVolume: 'horizontal',
+                audioWidth: 400,
+                audioHeight: 120
+            });
+        });
+    </script>
+}

@@ -7,13 +7,16 @@
 }
 @model MusicPortal.WEB.Models.ViewModels.MusicVM
 <table class="table table-bordered table-striped" style="width:100%">
+    
+        <a asp-area="" asp-controller="Home" asp-action="Add"><input class="btn btn-primary" type="submit" value="Add" /></a>
+    <br />
     <thead>
         <tr>
             <th>
-                Category Name
+                Name Track
             </th>
             <th>
-                Display Order
+                Genre
             </th>
             <th></th>
         </tr>
