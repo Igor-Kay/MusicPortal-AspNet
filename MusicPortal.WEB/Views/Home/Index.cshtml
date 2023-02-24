@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<main>
+    <section>
+        <form action="" method="post" class="row g-2">
+            <div class="col-auto">
+                <input class="form-control" name="searchString" placeholder="Search..." type="search">
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-primary" asp-action="Index" asp-controller="Home" type="submit">Поиск</button>
+            </div>
+        </form>
+        <h1>Music:</h1>
+        @foreach (MusicPortal.WEB.Models.ViewModels.MusicVM music in ViewBag.Musics)
+        {
+            <a asp-area="" asp-controller="Home" asp-action="MusicPage" asp-route-Id="@music.Id">
+                <option value="@music.Id">
+                    
+                        @music.Id 
+                        <h1>====</h1>
+                        @music.Name
+                    <h1>====</h1>
+                        @music.Genre
+                        <h1>====</h1>
+                        @music.Author.NickName
+                    
+                </option>
+            </a>
+        }
+    </section>
+    
+</main>

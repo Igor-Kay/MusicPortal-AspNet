@@ -1,0 +1,19 @@
+﻿@model MusicPortal.WEB.Models.ViewModels.MusicVM
+<main>
+    <div class="container">
+    <section>
+        <h3>Music: @Model.Name</h3>
+        <div>
+            <a class="">Жанр: @Model.Genre</a><br />
+            <a>Трек: pass</a>
+            
+            
+        </div>
+    </section>
+    <!-- кнопки администрирования -->
+    <section>
+        <a asp-area="" asp-controller="Home" asp-action="EditMusic" asp-route-Id="@Model.Id"><input type="submit" value="Edit" /></a>
+  
+    </section>
+    </div>
+</main>
