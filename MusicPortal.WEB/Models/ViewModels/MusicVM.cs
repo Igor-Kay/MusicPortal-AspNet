@@ -11,5 +11,7 @@ namespace MusicPortal.WEB.Models.ViewModels
         public GenreEnum Genre { get; set; }
 
         public Author Author { get; set; }
+
+        public string filesMusic { get; set; }
     }
 }

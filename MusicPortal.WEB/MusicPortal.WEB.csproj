@@ -30,4 +30,8 @@
     <ProjectReference Include="..\MusicPortal.DAL\MusicPortal.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\media\musics\" />
+  </ItemGroup>
+
 </Project>

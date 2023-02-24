@@ -2,7 +2,7 @@
 {
     public static class wc
     {
-        public const string ImagePath = @"\images\product\";
+        public const string MusicPath = @"\media\musics\";
         public const string SessionCart = "ShoppingCartSession";
 
         public const string AdminRole = "Admin";

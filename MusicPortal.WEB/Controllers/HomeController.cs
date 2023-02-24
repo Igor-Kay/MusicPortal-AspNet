@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -12,6 +13,7 @@ using MusicPortal.WEB.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -26,14 +28,16 @@ namespace MusicPortal.WEB.Controllers
         private readonly IMapper _mapper;
         private readonly UserManager<Author> _userManager;
         private readonly SignInManager<Author> _signInManager;
-      
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
         public HomeController(IMusicService musicService, IMapper mapper, UserManager<Author> userManager,
-            SignInManager<Author> signInManager)
+            SignInManager<Author> signInManager, IWebHostEnvironment webHostEnvironment)
         {
             _musicService = musicService;
             _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
+            _webHostEnvironment = webHostEnvironment;
             
         }
         
@@ -98,14 +102,36 @@ namespace MusicPortal.WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(MusicVM musicVM, string AuthorId)
         {
+            
             if (musicVM.Id == default)
             {
                 musicVM.Id = Guid.NewGuid();
-                /*musicVM.Author.Id = "5ec5b3ae - 4a0a - 432d - 9beb - fb29a6a22159";*/
                 musicVM.Author = await _userManager.FindByNameAsync(AuthorId);
 
+                var files = HttpContext.Request.Form.Files;
+                string webRootPath = _webHostEnvironment.WebRootPath;
+
+                string upload = webRootPath + wc.MusicPath;
+                string fileName = Guid.NewGuid().ToString();
+                string ext = Path.GetExtension(files[0].FileName);
+
+                using (var fileStream = new FileStream(Path.Combine(upload, fileName + ext), FileMode.Create))
+                {
+                    files[0].CopyTo(fileStream);
+                }
+                if(ext == ".mp3")
+                {
+                    musicVM.filesMusic = fileName + ext;
+                    await _musicService.AddAsync(_mapper.Map<MusicDTO>(musicVM));
+                }
+                else
+                {
+
+                }
+                
+
             }
-            await _musicService.AddAsync(_mapper.Map<MusicDTO>(musicVM));
+            
             return RedirectToAction("Index");
         }
 
