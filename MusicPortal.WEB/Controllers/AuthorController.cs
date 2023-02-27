@@ -10,6 +10,7 @@ using MusicPortal.DAL.Models;
 using MusicPortal.WEB.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace MusicPortal.WEB.Controllers
@@ -61,10 +62,51 @@ namespace MusicPortal.WEB.Controllers
         public async Task<IActionResult> Profile(AuthorVM authorVM)
         {
             var author = await _userManager.GetUserAsync(User);
+            if (ModelState.IsValid) 
+            {
+                author.NickName = authorVM.NickName;
+                author.Age = authorVM.Age;
+                author.Biography = authorVM.Biography;
+                author.mainGenre = authorVM.mainGenre;
+                author.linkInstagram = authorVM.linkInstagram;
+                author.linkYouTube = authorVM.linkYouTube;
+                author.linkVK = authorVM.linkVK;
+                author.linkOther = authorVM.linkOther;
 
-            author.NickName = authorVM.NickName;
-            author.Age = authorVM.Age;
+
+                var files = HttpContext.Request.Form.Files;
+                string webRootPath = _webHostEnvironment.WebRootPath;
+
+                if (files.Count > 0) 
+                {
+                    string upload = webRootPath + wc.AuthorPath;
+                    string fileName = author.Id.ToString();
+                    string extension = Path.GetExtension(files[0].FileName);
+
+                    if (author.imagePath != null && author.imagePath.Length > 2)
+                    {
+                        System.IO.File.Delete(webRootPath + wc.AuthorPath + author.imagePath);
+                        using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
+                        {
+                            files[0].CopyTo(fileStream);
+                        }
+                    }
+                    else {
+                        using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
+                        {
+                            files[0].CopyTo(fileStream);
+                        }
+                    }
+                    
+
+             
+
+                    author.imagePath = fileName + extension;
+                }
+
+            }
             
+
             
 
             await _authorService.UpdateAsync(_mapper.Map<AuthorDTO>(author));

@@ -1,4 +1,5 @@
-﻿@*
+﻿@using MusicPortal.DAL.Enum;
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -23,19 +24,79 @@
                     <label asp-for="NickName"></label>
                 </div>
                 <div class="col-8">
-                <input asp-for="NickName" class="form-control" id="name" />
-                <span asp-validation-for="NickName" class="text-danger" id="name"></span>
+                <input asp-for="NickName" class="form-control"  />
+                <span asp-validation-for="NickName" class="text-danger" ></span>
                  </div>
+       
+            <div class="col-4">
+                Image
+            </div>
+            <div class="col-8">
+                <input type="file" asp-for="imagePath" class="form-control" />
+            </div>
+
+
                  @*Age*@
                     <div class="col-4">
                         <label asp-for="Age"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Age" class="form-control" id="name" type="date"/>
-                        <span asp-validation-for="Age" class="text-danger" id="name"></span>
+                        <input asp-for="Age" class="form-control"  type="date"/>
+                        <span asp-validation-for="Age" class="text-danger" ></span>
                     </div>
-                 
+        @*Biografy*@
+        <div class="col-4">
+            <label asp-for="Biography"></label>
+        </div>
+        <div class="col-8">
+            <textarea asp-for="Biography" class="form-control summernote"></textarea>
+            <span asp-validation-for="Biography" class="text-danger"></span>
+        </div>
+        @*MainGenre*@
+                    <div class="col-4">
+                        <label asp-for="mainGenre"></label>
+                    </div>
+                    <div class="col-8">
+            <select asp-for="mainGenre" class="custom-select" asp-items="@Html.GetEnumSelectList<GenreEnum>()">
+                <option selected="selected" value="">Please select</option>
+            </select>
+            <span asp-validation-for="mainGenre" class="text-danger" />
+                    </div>
 
+
+        @*inst*@
+                    <div class="col-4">
+                        <label asp-for="linkInstagram"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="linkInstagram" class="form-control"  />
+            <span asp-validation-for="linkInstagram" class="text-danger"></span>
+                    </div>
+
+        @*vk*@
+        <div class="col-4">
+            <label asp-for="linkVK"></label>
+        </div>
+        <div class="col-8">
+            <input asp-for="linkVK" class="form-control"  />
+            <span asp-validation-for="linkVK" class="text-danger"></span>
+        </div>
+        @*youtube*@
+        <div class="col-4">
+            <label asp-for="linkYouTube"></label>
+        </div>
+        <div class="col-8">
+            <input asp-for="linkYouTube" class="form-control" />
+            <span asp-validation-for="linkYouTube" class="text-danger"></span>
+        </div>
+        @*other*@
+        <div class="col-4">
+            <label asp-for="linkOther"></label>
+        </div>
+        <div class="col-8">
+            <input asp-for="linkOther" class="form-control"  />
+            <span asp-validation-for="linkOther" class="text-danger"></span>
+        </div>
                     <div class="col-8 offset-4 row">
 
                         <div class="col">
@@ -45,5 +106,31 @@
                             <a asp-action="Index" class="btn btn-success w-100"><i class="fas fa-sign-out-alt"></i> Back</a>
                         </div>
                     </div>
-    </div>
+
+                    
+        </div>
 </form>
+@section Scripts{
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script>
+        $(document).ready(function () {
+            $('.summernote').summernote({
+                height: 250
+            });
+        });
+        function validateInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                Swal.fire(
+                    'Error!',
+                    'Please upload an Image!',
+                    'error'
+                )
+                return false;
+            }
+            return true;
+        }
+    </script>
+}

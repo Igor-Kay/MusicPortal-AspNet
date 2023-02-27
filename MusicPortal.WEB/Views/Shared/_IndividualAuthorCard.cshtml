@@ -6,7 +6,23 @@
             <div class="card-body px-3 pt-3 pb-1 row">
                 <div class="col-7"><label class="float-left">@Model.NickName</label></div>  
             </div>
-            <img class="card-img-top img-fluid d-block mx-auto mb-3" src="" alt="Card image cap">
+        @if(Model.imagePath == null || Model.imagePath == "" || Model.imagePath.Length < 2)
+        {
+            <img class="card-img-top img-fluid d-block mx-auto mb-3" src="@wc.AuthorPath/defaultImage.jpg" alt="Card image cap" style="border-radius: 8px;
+border: 1px solid #ddd;
+  padding: 5px;
+  width: 150px;">
+            
+        }
+        else
+        {
+            <img class="card-img-top img-fluid d-block mx-auto mb-3" src="@wc.AuthorPath@Model.imagePath" alt="Card image cap" style="border-radius: 8px;
+border: 1px solid #ddd;
+  padding: 5px;
+  width: 150px;">
+        }
+           
+            
             <div class="card-body p-1 px-3 row">
                 <div class="col-6">
                 <span class="badge p-2 border w-100" style="background-color:lavenderblush"><a class="text-dark">@(Model.Age.ToString().Split(" ")[0])</a></span>

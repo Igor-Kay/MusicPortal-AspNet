@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using MusicPortal.BLL.DTO;
 using MusicPortal.BLL.Interfaces;
@@ -42,11 +43,26 @@ namespace MusicPortal.WEB.Controllers
         }
         
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            ViewBag.Musics = _mapper.Map<ICollection<MusicVM>>(_musicService.GetAll());
-            return View();
+            int pageSize = 3;
+
+        
+            ICollection<MusicVM> musics = _mapper.Map<ICollection<MusicVM>>(_musicService.GetAll());
+            var count = musics.Count();
+            var items = musics.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            IndexViewModel viewModel = new IndexViewModel
+            {
+                PageViewModel = pageViewModel,
+                Musics = items
+            };
+            return View(viewModel);
         }
+
+
+
+
         [HttpPost]
         public IActionResult Index(string? searchString)
         {
@@ -60,18 +76,7 @@ namespace MusicPortal.WEB.Controllers
             return View();
         }
 
-        [Authorize]
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            var authorId = _userManager.GetUserId(User);
-            var music = _mapper.Map<MusicVM>(await _musicService.GetAsync(x => x.Id == id));
-            if (music.Author.Id == authorId) {
-                await _musicService.DeleteAsync(id);
-                return RedirectToAction("Index");
-            }
-            return RedirectToAction("Index");
-            
-        }
+        
 
 
         [HttpGet]
@@ -91,55 +96,7 @@ namespace MusicPortal.WEB.Controllers
         }
 
 
-        [Authorize]
-        [HttpGet]
-        public IActionResult Add()
-        {
-            
-            return View(new MusicVM());
-        }
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> Add(MusicVM musicVM, string AuthorId)
-        {
-            
-            if (musicVM.Id == default)
-            {
-                try
-                {
-                    musicVM.Id = Guid.NewGuid();
-                    musicVM.Author = await _userManager.FindByNameAsync(AuthorId);
-
-                    var files = HttpContext.Request.Form.Files;
-                    string webRootPath = _webHostEnvironment.WebRootPath;
-
-                    string upload = webRootPath + wc.MusicPath;
-                    string fileName = Guid.NewGuid().ToString();
-                    string ext = Path.GetExtension(files[0].FileName);
-
-                    using (var fileStream = new FileStream(Path.Combine(upload, fileName + ext), FileMode.Create))
-                    {
-                        files[0].CopyTo(fileStream);
-                    }
-                    if (ext == ".mp3")
-                    {
-                        musicVM.filesMusic = fileName + ext;
-                        await _musicService.AddAsync(_mapper.Map<MusicDTO>(musicVM));
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index");
-                    }
-                }
-                catch(Exception ex)
-                {
-                    return RedirectToAction("Index");
-                }
-
-            }
-
-            return RedirectToAction("Index");
-        }
+        
 
         [HttpGet]
         public async Task<IActionResult> MusicPage(Guid id)

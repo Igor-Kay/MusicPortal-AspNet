@@ -7,8 +7,8 @@
 <section>
     <div class="container">
         <h3>Author: @Model.NickName  Genre: @Model.mainGenre</h3>
-        <a>Age: @Model.Age</a><br />
-        <a>Bio: @Model.Biography</a><br />
+        <a>Age: @(Model.Age.ToString().Split(" ")[0])</a><br />
+        <p class="text-secondary"> Bio:@Html.Raw(@Model.Biography)</p>
         <a href="@Model.linkInstagram">Instagram</a><br />
         <a href="@Model.linkYouTube">Youtube</a><br />
         <a href="@Model.linkVK">Vk</a><br />

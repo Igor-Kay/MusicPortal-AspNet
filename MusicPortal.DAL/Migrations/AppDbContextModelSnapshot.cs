@@ -44,14 +44,14 @@ namespace MusicPortal.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "dc18ec0a-18dc-4468-8cb3-b4f239fde221",
-                            ConcurrencyStamp = "6b2b7cf1-334c-4f26-8780-57c9b5284c86",
+                            Id = "5f51ba38-8aa8-49ef-81ed-f54d6c7f7e9a",
+                            ConcurrencyStamp = "375ce13a-a03b-44cf-9f88-1fc2c93f1d18",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "99e7516f-6377-4b32-a003-6036790a6641",
-                            ConcurrencyStamp = "d2126dd6-c194-4386-a1e2-670896f92b9e",
+                            Id = "63fa4b8e-019e-45f7-8059-b0c4e30d0e94",
+                            ConcurrencyStamp = "bd4141f8-1352-4875-b631-86b2bdea7939",
                             Name = "User"
                         });
                 });

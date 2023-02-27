@@ -3,6 +3,7 @@
     public static class wc
     {
         public const string MusicPath = @"\media\musics\";
+        public const string AuthorPath = @"\media\imageAuthor\";
         public const string SessionCart = "ShoppingCartSession";
 
         public const string AdminRole = "Admin";

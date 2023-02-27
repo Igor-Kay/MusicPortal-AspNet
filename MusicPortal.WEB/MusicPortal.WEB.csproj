@@ -36,6 +36,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\media\musics\" />
+    <Folder Include="wwwroot\media\imageAuthor\" />
   </ItemGroup>
 
 </Project>

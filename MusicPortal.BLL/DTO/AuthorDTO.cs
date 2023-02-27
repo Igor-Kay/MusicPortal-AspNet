@@ -17,6 +17,7 @@ namespace MusicPortal.BLL.DTO
         public DateTime? Age { get; set; }
 
         public GenreEnum? mainGenre { get; set; }
+        public string imagePath { get; set; }
 
         public string? Biography { get; set; }
 
