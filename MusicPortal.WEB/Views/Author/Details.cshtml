@@ -1,12 +1,15 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
-}
+
 @model MusicPortal.WEB.Models.ViewModels.AuthorVM
+
+@{
+    ViewData["Title"] = "Автор - " + Model.NickName;
+}
 <section>
     <div class="container">
-        <h3>Author: @Model.NickName  Genre: @Model.mainGenre</h3>
+        <h3>Имя: @Model.NickName  Основной жанр: @Model.mainGenre.ToString().Replace("_", " ")</h3>
         <a>Age: @(Model.Age.ToString().Split(" ")[0])</a><br />
         <p class="text-secondary"> Bio:@Html.Raw(@Model.Biography)</p>
         <a href="@Model.linkInstagram">Instagram</a><br />
@@ -18,12 +21,12 @@
 
 
             <h3 class="h3">
-                Musics:
+                Треки:
             </h3>
                 @foreach (var item in ViewBag.MusicsAuthor)
                 {
                                                                         
-                        <h5>Music: @item.Name</h5>
+                        <h5>Название: @item.Name</h5>
                         <div>
                             <a class="">Жанр: @item.Genre</a><br />           
                         </div>

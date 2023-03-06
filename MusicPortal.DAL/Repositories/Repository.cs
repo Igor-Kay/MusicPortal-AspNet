@@ -20,10 +20,7 @@ namespace MusicPortal.DAL.Repositories
             dbSet = db.Set<TEntity>();
         }
 
-        public void Create(TEntity item)
-        {
-            dbSet.Add(item);
-        }
+
 
         public async Task<TEntity> CreateAsync(TEntity item)
         {
@@ -31,30 +28,17 @@ namespace MusicPortal.DAL.Repositories
             return item;
         }
 
-        public void Delete(TEntity item)
-        {
-            dbSet.Remove(item);
-        }
 
         public async Task DeleteAsync(TEntity item)
         {
             dbSet.Remove(item);
         }
 
-        
-
-        public TEntity Get(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] incl)
-        {
-            var data = dbSet.Where(predicate);
-            if (incl != null)
-            {
-                data = incl.Aggregate(data, (current, inclusion) => current.Include(inclusion));
-            }
-            return data.FirstOrDefault();
-        }
 
         public IQueryable<TEntity> GetAll()
         {
+            
+            
             return dbSet.AsQueryable().AsNoTracking();
         }
 
@@ -68,11 +52,7 @@ namespace MusicPortal.DAL.Repositories
             return data.FirstOrDefault();
         }
 
-        public TEntity Update(TEntity item)
-        {
-            _db.Update(item);
-            return item;
-        }
+
 
         public async Task<TEntity> UpdateAsync(TEntity item)
         {

@@ -11,13 +11,10 @@ namespace MusicPortal.DAL.Interface
     public interface IRepository<T> where T : class
     {
         IQueryable<T> GetAll();
-        T Get(Expression<Func<T, bool>>? predicate, params Expression<Func<T, object>>[]? incl);
         Task<T> GetAsync(Expression<Func<T, bool>>? predicate, params Expression<Func<T, object>>[]? incl);
-        void Create(T item);
         Task<T> CreateAsync(T item);
-        T Update(T item);
         Task<T> UpdateAsync(T item);
-        void Delete(T item);
+ 
         Task DeleteAsync(T item);
         
     }

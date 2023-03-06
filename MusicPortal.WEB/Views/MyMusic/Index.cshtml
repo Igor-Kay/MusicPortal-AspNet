@@ -3,20 +3,20 @@
 @inject SignInManager<Author> SignInManager
 @inject UserManager<Author> UserManager
 @{
-    ViewData["Title"] = "My music";
+    ViewData["Title"] = "Мои треки";
 }
 @model MusicPortal.WEB.Models.ViewModels.MusicVM
 <table class="table table-bordered table-striped" style="width:100%">
 
-    <a asp-area="" asp-controller="MyMusic" asp-action="Add"><input class="btn btn-primary" type="submit" value="Add" /></a>
+    <a asp-area="" asp-controller="MyMusic" asp-action="Add"><input class="btn btn-primary" type="submit" value="Добавить трек" /></a>
     <br />
     <thead>
         <tr>
             <th>
-                Name Track
+                Название трека
             </th>
             <th>
-                Genre
+                Жанр
             </th>
             <th></th>
         </tr>
@@ -49,7 +49,3 @@
     </tbody>
 </table>
 
-@foreach (MusicPortal.WEB.Models.ViewModels.MusicVM music in ViewBag.MyMusic){
-
-    
-}

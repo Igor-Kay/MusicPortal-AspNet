@@ -1,12 +1,10 @@
 ﻿@using MusicPortal.DAL.Enum;
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+
 @model MusicPortal.WEB.Models.ViewModels.AuthorVM
 
-
+@{
+    ViewData["Title"] = "Профиль";
+}
 <form method="post" asp-action="Profile" asp-controller="Author" enctype="multipart/form-data">
     @*Неизменяемы данные*@
     @*<input asp-for="Id" hidden />*@
@@ -21,7 +19,7 @@
     <div class="form-group row">
                 @*Nickname*@
                 <div class="col-4">
-                    <label asp-for="NickName"></label>
+                    <label>Ник</label>
                 </div>
                 <div class="col-8">
                 <input asp-for="NickName" class="form-control"  />
@@ -29,7 +27,7 @@
                  </div>
        
             <div class="col-4">
-                Image
+                Фото профиля
             </div>
             <div class="col-8">
                 <input type="file" asp-for="imagePath" class="form-control" />
@@ -38,7 +36,7 @@
 
                  @*Age*@
                     <div class="col-4">
-                        <label asp-for="Age"></label>
+                        <label>Возраст</label>
                     </div>
                     <div class="col-8">
                         <input asp-for="Age" class="form-control"  type="date"/>
@@ -46,7 +44,7 @@
                     </div>
         @*Biografy*@
         <div class="col-4">
-            <label asp-for="Biography"></label>
+            <label>О себе</label>
         </div>
         <div class="col-8">
             <textarea asp-for="Biography" class="form-control summernote"></textarea>
@@ -54,7 +52,7 @@
         </div>
         @*MainGenre*@
                     <div class="col-4">
-                        <label asp-for="mainGenre"></label>
+                        <label>Основной жанр</label>
                     </div>
                     <div class="col-8">
             <select asp-for="mainGenre" class="custom-select" asp-items="@Html.GetEnumSelectList<GenreEnum>()">
@@ -66,7 +64,7 @@
 
         @*inst*@
                     <div class="col-4">
-                        <label asp-for="linkInstagram"></label>
+                        <label>Ссылка на инстрагам</label>
                     </div>
                     <div class="col-8">
                         <input asp-for="linkInstagram" class="form-control"  />
@@ -75,7 +73,7 @@
 
         @*vk*@
         <div class="col-4">
-            <label asp-for="linkVK"></label>
+            <label>Ссылка на ВК</label>
         </div>
         <div class="col-8">
             <input asp-for="linkVK" class="form-control"  />
@@ -83,7 +81,7 @@
         </div>
         @*youtube*@
         <div class="col-4">
-            <label asp-for="linkYouTube"></label>
+            <label>Ссылка на youtube канал</label>
         </div>
         <div class="col-8">
             <input asp-for="linkYouTube" class="form-control" />
@@ -91,7 +89,7 @@
         </div>
         @*other*@
         <div class="col-4">
-            <label asp-for="linkOther"></label>
+            Другие ссылки
         </div>
         <div class="col-8">
             <input asp-for="linkOther" class="form-control"  />

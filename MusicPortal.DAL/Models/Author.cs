@@ -32,5 +32,8 @@ namespace MusicPortal.DAL.Models
         public string? linkYouTube { get; set; }
 
         public string? linkOther { get; set; }
+
+        public List<Author> Subscribe { get; set; } =  new List<Author>();
+        public List<Author> Subscribers { get; set; } = new List<Author>();
     }
 }

@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,11 +12,7 @@ using MusicPortal.DAL.Models;
 using MusicPortal.DAL.Repositories;
 using MusicPortal.WEB.AutoMapperProfiles;
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MusicPortal.WEB
 {
@@ -39,11 +33,15 @@ namespace MusicPortal.WEB
             var connection = Configuration.GetConnectionString("DefaultConnection");
             Debug.WriteLine(connection);
 
+            /*services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlServer(
+                Configuration.GetConnectionString("Connection")));*/
+
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite(connection));
 
             services.AddDefaultIdentity<Author> (options => {
-                options.SignIn.RequireConfirmedAccount = true;
+                options.SignIn.RequireConfirmedAccount = false;
                 options.SignIn.RequireConfirmedEmail = false;
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 5;
@@ -53,6 +51,8 @@ namespace MusicPortal.WEB
             }
             )
             .AddEntityFrameworkStores<AppDbContext>();
+
+           
 
             services.AddAutoMapper(typeof(MusicProfile));
             services.AddAutoMapper(typeof(AuthorProfile));
@@ -94,6 +94,8 @@ namespace MusicPortal.WEB
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+           
+            
         }
     }
 }

@@ -73,7 +73,7 @@ namespace MusicPortal.WEB.Controllers
                     {
                         files[0].CopyTo(fileStream);
                     }
-                    if (ext == ".mp3")
+                    if (ext == ".mp3" || ext == ".ogg" || ext == ".wav")
                     {
                         musicVM.filesMusic = fileName + ext;
                         await _musicService.AddAsync(_mapper.Map<MusicDTO>(musicVM));

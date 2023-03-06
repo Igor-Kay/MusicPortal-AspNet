@@ -6,9 +6,9 @@
 @inject SignInManager<Author> SignInManager
 @inject UserManager<Author> UserManager
 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+@{
+    ViewData["Title"] = "Создание трека";
+}
 
 @model MusicVM
 
@@ -19,7 +19,7 @@
             <div class="col-8">
                 <div class="form-group row">
                     <div class="col-4">
-                        <label asp-for="Name"></label>
+                        <label>Название трека</label>
                     </div>
                     <div class="col-8">
                         <input asp-for="Name" class="form-control" id="name"/>
@@ -28,7 +28,7 @@
                 </div>
             <div class="form-group row">
                 <div class="col-4">
-                    <label>Genre</label>
+                    <label>Жанр</label>
                 </div>
                 <div class="col-8">
                 <select asp-for="Genre" class="custom-select" asp-items="@Html.GetEnumSelectList<GenreEnum>()">
@@ -39,7 +39,7 @@
             </div>
             <div class="form-group row">
                     <div class="col-4">
-                        Music
+                        Загрузка файла
                     </div>
                     <div class="col-8">
                         <input type="file" name="files" id="uploadBox" class="form-control" />

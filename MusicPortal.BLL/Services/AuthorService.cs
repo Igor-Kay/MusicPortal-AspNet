@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MusicPortal.BLL.DTO;
 using MusicPortal.BLL.Interfaces;
 using MusicPortal.DAL.Interface;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,9 +31,9 @@ namespace MusicPortal.BLL.Services
             return _mapper.Map<AuthorDTO>(await _uow.GetRepository<Author>().GetAsync(predicate, x=> x.Musics));
         }
 
-        public ICollection<AuthorDTO> GetAll()
-        {
-            return _mapper.Map<ICollection<AuthorDTO>>(_uow.GetRepository<Author>().GetAll());
+        public ICollection<AuthorDTO> GetAll() 
+        { 
+            return _mapper.Map<ICollection<AuthorDTO>>(_uow.GetRepository<Author>().GetAll().Include(x => x.Subscribe).Include(x => x.Subscribers));
         }
 
         public Task DeleteAsync(Guid id)
@@ -55,10 +57,33 @@ namespace MusicPortal.BLL.Services
             await _uow.SaveChangesAsync();
             return _mapper.Map<AuthorDTO>(author);
         }
+        public async Task AddAuthorAsync(Guid authorGuid, Guid authorToSubGuid)
+        {
+            var author = await _uow.GetRepository<Author>().GetAsync(x => x.Id == authorGuid.ToString());
+            var authorToSub = await _uow.GetRepository<Author>().GetAsync(x => x.Id == authorToSubGuid.ToString());
+
+            if (author != null && authorToSub != null)
+            {
+                if (author.Subscribe == null && author.Subscribers == null
+                    && authorToSub.Subscribe == null && authorToSub.Subscribers == null)
+                    author.Subscribe = new List<Author>();
+                
+                author.Subscribe.Add(authorToSub);
+                authorToSub.Subscribers.Add(author);
+                await _uow.SaveChangesAsync();
+            }
+        }
+
+
+
+
+
 
         public void Dispose()
         {
             throw new NotImplementedException();
         }
+
+       
     }
 }

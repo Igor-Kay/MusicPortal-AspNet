@@ -4,7 +4,9 @@
 @{
 }
 @model MusicPortal.WEB.Models.ViewModels.AuthorVM
-
+@{
+    ViewData["Title"] = "Авторы всея галактики";
+}
 <div class="row">
 @foreach (var author in ViewBag.Authors)
 {

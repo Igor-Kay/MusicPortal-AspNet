@@ -66,6 +66,7 @@ namespace MusicPortal.WEB.Controllers
         [HttpPost]
         public IActionResult Index(string? searchString)
         {
+           
             if (searchString == null) searchString = "";
             /*var emp = from e in _musicService.GetAll() where e.Name.ToLower().Contains(searchString) select e;*/
             var music = from e in _musicService.GetAll() where e.Name.ToLower().Contains(searchString) ||

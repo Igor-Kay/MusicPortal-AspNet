@@ -1,15 +1,16 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MusicPortal.BLL.DTO;
 using MusicPortal.BLL.Interfaces;
-using MusicPortal.BLL.Services;
 using MusicPortal.DAL.Models;
 using MusicPortal.WEB.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -42,6 +43,8 @@ namespace MusicPortal.WEB.Controllers
             return View();
         }
 
+       
+
         [HttpGet]
         public async Task<IActionResult> Details(Guid id)
         {
@@ -62,7 +65,7 @@ namespace MusicPortal.WEB.Controllers
         public async Task<IActionResult> Profile(AuthorVM authorVM)
         {
             var author = await _userManager.GetUserAsync(User);
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
                 author.NickName = authorVM.NickName;
                 author.Age = authorVM.Age;
@@ -77,7 +80,7 @@ namespace MusicPortal.WEB.Controllers
                 var files = HttpContext.Request.Form.Files;
                 string webRootPath = _webHostEnvironment.WebRootPath;
 
-                if (files.Count > 0) 
+                if (files.Count > 0)
                 {
                     string upload = webRootPath + wc.AuthorPath;
                     string fileName = author.Id.ToString();
@@ -91,26 +94,34 @@ namespace MusicPortal.WEB.Controllers
                             files[0].CopyTo(fileStream);
                         }
                     }
-                    else {
+                    else
+                    {
                         using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
                         {
                             files[0].CopyTo(fileStream);
                         }
                     }
-                    
-
-             
 
                     author.imagePath = fileName + extension;
                 }
 
-            }
-            
 
-            
+            }
+
 
             await _authorService.UpdateAsync(_mapper.Map<AuthorDTO>(author));
             return RedirectToAction("Index");
         }
+
+        [Authorize]
+        public async Task<IActionResult> SubscribeToAuthor(Guid id)
+        {
+            var author = await _userManager.GetUserAsync(User);
+            var authorToSub = await _authorService.GetAsync(x => x.Id == id.ToString());
+            await _authorService.AddAuthorAsync(Guid.Parse(author.Id), Guid.Parse(authorToSub.Id));
+            return RedirectToAction("Index");
+        }
+
+
     }
 }

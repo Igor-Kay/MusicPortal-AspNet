@@ -1,44 +1,28 @@
 ﻿@using MusicPortal.WEB.Models.ViewModels;
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Главная страница";
 }
 @model IndexViewModel
 <main>
     <section>
         <form action="" method="post" class="row g-2">
             <div class="col-auto">
-                <input class="form-control" name="searchString" placeholder="Search..." type="search">
+                <input class="form-control" name="searchString" placeholder="Поиск..." type="search">
             </div>
             <div class="col-auto">
                 <button class="btn btn-primary" asp-action="Index" asp-controller="Home" type="submit">Поиск</button>
             </div>
         </form>
-       @* <h1>Music:</h1>
-        @foreach (MusicPortal.WEB.Models.ViewModels.MusicVM music in ViewBag.Musics)
-        {
-            <a asp-area="" asp-controller="Home" asp-action="MusicPage" asp-route-Id="@music.Id">
-                <option value="@music.Id">
-                    
-                        @music.Id 
-                        <h1>====</h1>
-                        @music.Name
-                    <h1>====</h1>
-                        @music.Genre
-                        <h1>====</h1>
-                        @music.Author.NickName
-                    
-                </option>
-            </a>
-        }*@
-        <h1>Список пользователей</h1>
+       
+        <h3>Треки</h3>
         <table class="table">
             <tr><th>Трек</th><th>Жанр</th><th>Автор</th></tr>
             @foreach (var u in Model.Musics)
             {
                 <tr>
                     <td><a asp-area="" asp-controller="Home" asp-action="MusicPage" asp-route-Id="@u.Id">@u.Name</a></td>
-                    <td>@u.Genre</td>
+                    <td>@u.Genre.ToString().Replace("_", " ")</td>
                     <td><a asp-action="Details" asp-controller="Author"  asp-route-id="@u.Author.Id" class="btn btn-dark form-control btn-sm p-2" style="height:40px">@u.Author.NickName</a></td>
                 
                     

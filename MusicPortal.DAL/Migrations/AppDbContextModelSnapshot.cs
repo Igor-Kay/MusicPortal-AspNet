@@ -16,6 +16,21 @@ namespace MusicPortal.DAL.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.17");
 
+            modelBuilder.Entity("AuthorAuthor", b =>
+                {
+                    b.Property<string>("SubscribeId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SubscribersId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("SubscribeId", "SubscribersId");
+
+                    b.HasIndex("SubscribersId");
+
+                    b.ToTable("AuthorAuthor");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -44,14 +59,14 @@ namespace MusicPortal.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5f51ba38-8aa8-49ef-81ed-f54d6c7f7e9a",
-                            ConcurrencyStamp = "375ce13a-a03b-44cf-9f88-1fc2c93f1d18",
+                            Id = "c37917bd-c959-49c2-bc32-12eece98bb6b",
+                            ConcurrencyStamp = "b98a3b6f-1436-424f-9b9c-b831a24c9f6f",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "63fa4b8e-019e-45f7-8059-b0c4e30d0e94",
-                            ConcurrencyStamp = "bd4141f8-1352-4875-b631-86b2bdea7939",
+                            Id = "5be0c77c-ac5c-45b6-84ea-b5c00a7bca03",
+                            ConcurrencyStamp = "bdad6af0-f9bd-455f-9f80-e90c116f2853",
                             Name = "User"
                         });
                 });
@@ -289,6 +304,21 @@ namespace MusicPortal.DAL.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasDiscriminator().HasValue("Author");
+                });
+
+            modelBuilder.Entity("AuthorAuthor", b =>
+                {
+                    b.HasOne("MusicPortal.DAL.Models.Author", null)
+                        .WithMany()
+                        .HasForeignKey("SubscribeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MusicPortal.DAL.Models.Author", null)
+                        .WithMany()
+                        .HasForeignKey("SubscribersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
