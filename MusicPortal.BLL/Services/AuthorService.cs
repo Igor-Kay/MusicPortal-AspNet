@@ -28,7 +28,7 @@ namespace MusicPortal.BLL.Services
 
         public async Task<AuthorDTO> GetAsync(Expression<Func<Author, bool>> predicate)
         {
-            return _mapper.Map<AuthorDTO>(await _uow.GetRepository<Author>().GetAsync(predicate, x=> x.Musics));
+            return _mapper.Map<AuthorDTO>(await _uow.GetRepository<Author>().GetAsync(predicate, x=> x.Musics, x => x.Subscribers, x=>x.Subscribe));
         }
 
         public ICollection<AuthorDTO> GetAll() 
@@ -70,6 +70,18 @@ namespace MusicPortal.BLL.Services
                 
                 author.Subscribe.Add(authorToSub);
                 authorToSub.Subscribers.Add(author);
+                await _uow.SaveChangesAsync();
+            }
+        }
+        public async Task RemoveSubAuthorAsync(Guid authorGuid, Guid authorToUnSubGuid)
+        {
+            var author = await _uow.GetRepository<Author>().GetAsync(x => x.Id == authorGuid.ToString());
+            var authorToUnsub = await _uow.GetRepository<Author>().GetAsync(x => x.Id == authorToUnSubGuid.ToString());
+
+            if (author != null && authorToUnsub != null)
+            {
+                author.Subscribe?.Remove(authorToUnsub);
+                authorToUnsub.Subscribers?.Remove(author);
                 await _uow.SaveChangesAsync();
             }
         }

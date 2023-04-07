@@ -121,6 +121,14 @@ namespace MusicPortal.WEB.Controllers
             await _authorService.AddAuthorAsync(Guid.Parse(author.Id), Guid.Parse(authorToSub.Id));
             return RedirectToAction("Index");
         }
+        [Authorize]
+        public async Task<IActionResult> UnsubscribeFromAuthor(Guid id)
+        {
+            var author = await _userManager.GetUserAsync(User);
+            var authorToUnSub = await _authorService.GetAsync(x => x.Id == id.ToString());
+            await _authorService.RemoveSubAuthorAsync(Guid.Parse(author.Id), Guid.Parse(authorToUnSub.Id));
+            return RedirectToAction("Index");
+        }
 
 
     }

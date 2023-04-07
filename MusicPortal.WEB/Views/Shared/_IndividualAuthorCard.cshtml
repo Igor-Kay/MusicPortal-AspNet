@@ -1,4 +1,11 @@
 ﻿@model MusicPortal.WEB.Models.ViewModels.AuthorVM
+@using Microsoft.AspNetCore.Identity
+@using MusicPortal.DAL.Models;
+@using AutoMapper
+@inject IMapper Mapper
+
+@inject SignInManager<Author> SignInManager
+@inject UserManager<Author> UserManager
 
     <div class="col-lg-4 col-md-6 pb-4 filter @Model.NickName">
         <!-- Card-->
@@ -36,13 +43,34 @@ border: 1px solid #ddd;
                 <div class="col-6 p-1">
                     <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-dark form-control btn-sm p-2" style="height:40px">Подробнее</a>
                 </div>
-            <div class="col-6 p-1">
-                <a asp-action="SubscribeToAuthor" asp-route-Id="@Model.Id" class="btn btn-info form-control btn-sm p-2">
-                    Subscribe
-                </a>
-                @*<a asp-controller="Author" asp-action="Subscribe" asp-route-id="@Model.Id" class="" style="height:40px">Subscribe</a>*@
-            </div>
-            
+            @{
+                var author = Mapper.Map<Author>(Model);
+               
+                var currentUser = await UserManager.GetUserAsync(User);
+
+                if (author.Subscribers.Any(x => x.Id == currentUser.Id))
+                {
+                    <div class="col-6 p-1">
+                        <a asp-action="UnsubscribeFromAuthor" asp-route-Id="@Model.Id" class="btn btn-danger form-control btn-sm p-2">
+                            Отписаца
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-6 p-1">
+                        <a asp-action="SubscribeToAuthor" asp-route-Id="@Model.Id" class="btn btn-primary form-control btn-sm p-2">
+                            Подписаца
+                        </a>
+                    </div>
+                }
+            }
+
+           
+           
+
+
+
             </div>
         </div>
     </div>

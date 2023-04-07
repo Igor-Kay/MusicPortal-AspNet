@@ -12,6 +12,7 @@ namespace MusicPortal.BLL.Interfaces
     public interface IAuthorService
     {
         Task AddAuthorAsync(Guid modelId, Guid author);
+        Task RemoveSubAuthorAsync(Guid modelId, Guid author);
         Task<AuthorDTO> GetAsync(Expression<Func<Author, bool>>? predicate);
         ICollection<AuthorDTO> GetAll();
         Task DeleteAsync(Guid id);

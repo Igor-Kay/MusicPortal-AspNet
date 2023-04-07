@@ -10,6 +10,8 @@ namespace MusicPortal.WEB.AutoMapperProfiles
         public AuthorProfile() {
             CreateMap<Author, AuthorDTO>().ReverseMap();
             CreateMap<AuthorDTO, AuthorVM>().ReverseMap();
+            CreateMap<AuthorVM, Author>().ReverseMap();
+            CreateMap<Author, AuthorVM>().ReverseMap();
         }
     }
 }
