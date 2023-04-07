@@ -1,52 +1,93 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
-@model MusicPortal.WEB.Models.ViewModels.AuthorVM
+﻿@model MusicPortal.WEB.Models.ViewModels.AuthorVM
 
 @{
     ViewData["Title"] = "Автор - " + Model.NickName;
 }
+
 <section>
     <div class="container">
-        <h3>Имя: @Model.NickName  Основной жанр: @Model.mainGenre.ToString().Replace("_", " ")</h3>
-        <a>Age: @(Model.Age.ToString().Split(" ")[0])</a><br />
-        <p class="text-secondary"> Bio:@Html.Raw(@Model.Biography)</p>
-        <a href="@Model.linkInstagram">Instagram</a><br />
-        <a href="@Model.linkYouTube">Youtube</a><br />
-        <a href="@Model.linkVK">Vk</a><br />
-        <a href="@Model.linkOther">Other</a><br />
-        
-    
+        @if (Model.imagePath == null || Model.imagePath == "" || Model.imagePath.Length < 2)
+        {
+            <img class="card-img-top img-fluid d-block mx-auto mb-3" src="@wc.AuthorPath/defaultImage.jpg" alt="Картинка автора" style="border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 5px;
+            width: 150px;">
+        }
+        else
+        {
+            <img class="card-img-top img-fluid d-block mx-auto mb-3" src="@wc.AuthorPath@Model.imagePath" alt="Картинка автора" style="border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 5px;
+            width: 150px;">
+        }
+        <h3>Имя: @Model.NickName, Основной жанр: @Model.mainGenre.ToString().Replace("_", " ")</h3>
+        <a>Возраст: @(Model.Age.ToString().Split(" ")[0])</a><br />
+        <p class="text-secondary"> Биография: @Html.Raw(@Model.Biography)</p>
+        @if (!string.IsNullOrEmpty(Model.linkInstagram))
+        {
+            <a href="@Model.linkInstagram">Instagram</a>
 
+            <br />
+        }
+        @if (!string.IsNullOrEmpty(Model.linkYouTube))
+        {
+            <a href="@Model.linkYouTube">Youtube</a>
 
-            <h3 class="h3">
-                Треки:
-            </h3>
-                @foreach (var item in ViewBag.MusicsAuthor)
-                {
-                                                                        
-                        <h5>Название: @item.Name</h5>
-                        <div>
-                            <a class="">Жанр: @item.Genre</a><br />           
-                        </div>
-                            <div class="audio-player">
-                                <audio id="audio-player" src="@wc.MusicPath@item.filesMusic" type="audio/mp3" controls="controls"></audio>
+            <br />
+        }
+        @if (!string.IsNullOrEmpty(Model.linkVK))
+        {
+            <a href="@Model.linkVK">Vk</a>
+
+            <br />
+        }
+        @if (!string.IsNullOrEmpty(Model.linkOther))
+        {
+            <a href="@Model.linkOther">Другое</a>
+
+            <br />
+        }
+
+        <h3 class="h3">
+            Треки:
+        </h3>
+        @if (ViewBag.MusicsAuthor.Count == 0)
+        {
+            <p>Треков пока нет</p>
+        }
+        else
+        {
+            @foreach (var item in ViewBag.MusicsAuthor)
+            {
+                <div class="card mb-3" style="max-width: 700px;">
+                    <div class="row no-gutters">
+                        
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Name</h5>
+                                <p class="card-text">Жанр: @item.Genre</p>
+                                <div class="audio-player">
+                                    <audio id="audio-player-@item.Id" src="@wc.MusicPath@item.filesMusic" type="audio/mp3" controls="controls"></audio>
+                                </div>
                             </div>
-  
-                }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
     </div>
+
 </section>
 @section Scripts{
-        <script>
-            $(document).ready(function () {
-                $('#audio-player').mediaelementplayer({
-                    alwaysShowControls: true,
-                    features: ['playpause', 'volume', 'progress'],
-                    audioVolume: 'horizontal',
-                    audioWidth: 400,
-                    audioHeight: 120
-                });
-            });
-        </script>
+<script>
+        $(document).ready(function () {
+        $('audio').mediaelementplayer({
+        alwaysShowControls: true,
+        features: ['playpause', 'volume', 'progress'],
+        audioVolume: 'horizontal',
+        audioWidth: 400,
+        audioHeight: 120
+        });
+        });
+</script>
 }

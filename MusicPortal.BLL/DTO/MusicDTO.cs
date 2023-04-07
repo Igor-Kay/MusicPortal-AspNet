@@ -17,7 +17,9 @@ namespace MusicPortal.BLL.DTO
        
         public GenreEnum Genre { get; set; }
         public Author Author { get; set; }
-        
+        [DataType(DataType.Date)]
+        public DateTime Date { get; set; }
+
         public string filesMusic { get; set; }
     }
 }

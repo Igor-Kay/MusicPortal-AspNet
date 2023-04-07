@@ -33,7 +33,7 @@ namespace MusicPortal.BLL.Services
 
         public ICollection<AuthorDTO> GetAll() 
         { 
-            return _mapper.Map<ICollection<AuthorDTO>>(_uow.GetRepository<Author>().GetAll().Include(x => x.Subscribe).Include(x => x.Subscribers));
+            return _mapper.Map<ICollection<AuthorDTO>>(_uow.GetRepository<Author>().GetAll().Include(x => x.Subscribe).Include(x => x.Subscribers).Include(x=> x.Musics));
         }
 
         public Task DeleteAsync(Guid id)

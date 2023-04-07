@@ -2,6 +2,7 @@
 using MusicPortal.BLL.DTO;
 using MusicPortal.DAL.Models;
 using MusicPortal.WEB.Models.ViewModels;
+using System.Collections.Generic;
 
 namespace MusicPortal.WEB.AutoMapperProfiles
 {
@@ -12,6 +13,8 @@ namespace MusicPortal.WEB.AutoMapperProfiles
             CreateMap<AuthorDTO, AuthorVM>().ReverseMap();
             CreateMap<AuthorVM, Author>().ReverseMap();
             CreateMap<Author, AuthorVM>().ReverseMap();
+            
+
         }
     }
 }

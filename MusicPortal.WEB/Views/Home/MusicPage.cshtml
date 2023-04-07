@@ -9,15 +9,14 @@
         <div>
             <a class="">Жанр: @Model.Genre</a><br />          
         </div>
+            <div>
+                <a class="">Релизе: @Model.Date</a><br />
+            </div>
             <div class="audio-player">
                 <audio id="audio-player" src="@wc.MusicPath@Model.filesMusic" type="audio/mp3" controls="controls"></audio>
             </div>
     </section>
-    <!-- кнопки администрирования -->
-    <section>
-        <a asp-area="" asp-controller="Home" asp-action="EditMusic" asp-route-Id="@Model.Id"><input type="submit" value="Edit" /></a>
-  
-    </section>
+    
     </div>
 </main>
 @section Scripts{

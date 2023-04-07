@@ -26,14 +26,16 @@ namespace MusicPortal.WEB.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IMusicService _musicService;
+        private readonly IAuthorService _authorService;
         private readonly IMapper _mapper;
         private readonly UserManager<Author> _userManager;
         private readonly SignInManager<Author> _signInManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
         public HomeController(IMusicService musicService, IMapper mapper, UserManager<Author> userManager,
-            SignInManager<Author> signInManager, IWebHostEnvironment webHostEnvironment)
+            SignInManager<Author> signInManager, IWebHostEnvironment webHostEnvironment, IAuthorService authorService)
         {
+            _authorService = authorService;
             _musicService = musicService;
             _mapper = mapper;
             _userManager = userManager;
@@ -77,27 +79,23 @@ namespace MusicPortal.WEB.Controllers
             return View();
         }
 
-        
-
 
         [HttpGet]
-        public async Task<IActionResult> EditMusic(Guid id)
+        public async Task<IActionResult> Subcribers()
         {
-            return View(_mapper.Map<MusicVM>(await _musicService.GetAsync(x => x.Id == id)));
-        }
-        [HttpPost]
-        public async Task<IActionResult> EditMusic(MusicVM musicVM)
-        {
-            if (musicVM.Id == default)
-            {
-                musicVM.Id = Guid.NewGuid();
-            }
-            await _musicService.UpdateAsync(_mapper.Map<MusicDTO>(musicVM));
-            return RedirectToAction("Index");
+            var currentUser = await _userManager.GetUserAsync(User);
+            var authors = await _authorService.GetAsync(x => x.Id == currentUser.Id);
+          
+            ViewBag.Subcribers = authors.Subscribe;
+            return View();
         }
 
 
-        
+
+
+
+
+
 
         [HttpGet]
         public async Task<IActionResult> MusicPage(Guid id)

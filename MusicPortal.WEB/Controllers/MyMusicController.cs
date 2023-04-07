@@ -62,6 +62,8 @@ namespace MusicPortal.WEB.Controllers
                     musicVM.Id = Guid.NewGuid();
                     musicVM.Author = await _userManager.FindByNameAsync(AuthorId);
 
+                    musicVM.Date = DateTime.Today;
+
                     var files = HttpContext.Request.Form.Files;
                     string webRootPath = _webHostEnvironment.WebRootPath;
 

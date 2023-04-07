@@ -59,14 +59,14 @@ namespace MusicPortal.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c37917bd-c959-49c2-bc32-12eece98bb6b",
-                            ConcurrencyStamp = "b98a3b6f-1436-424f-9b9c-b831a24c9f6f",
+                            Id = "8d308e70-7605-4af0-8db6-6f49a36288a2",
+                            ConcurrencyStamp = "d622d2c4-a2d9-49fe-8f1e-7750eff6c1c2",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "5be0c77c-ac5c-45b6-84ea-b5c00a7bca03",
-                            ConcurrencyStamp = "bdad6af0-f9bd-455f-9f80-e90c116f2853",
+                            Id = "81f8193d-caef-4684-93d9-4144e93c2802",
+                            ConcurrencyStamp = "0b4a88ca-68fa-4241-a773-e56bf3f73667",
                             Name = "User"
                         });
                 });
@@ -254,6 +254,9 @@ namespace MusicPortal.DAL.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("AuthorId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Genre")

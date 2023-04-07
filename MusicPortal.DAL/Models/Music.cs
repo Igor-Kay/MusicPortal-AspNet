@@ -26,6 +26,8 @@ namespace MusicPortal.DAL.Models
         public string AuthorId { get; set; }
         public Author? Author { get; set; }
 
+        [DataType(DataType.Date)]
+        public DateTime Date { get; set; }
         public string filesMusic { get; set; }
         
     }
