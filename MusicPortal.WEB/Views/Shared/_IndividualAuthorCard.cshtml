@@ -43,7 +43,9 @@ border: 1px solid #ddd;
                 <div class="col-6 p-1">
                     <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-dark form-control btn-sm p-2" style="height:40px">Подробнее</a>
                 </div>
-            @{
+            @if (SignInManager.IsSignedIn(User))
+            {
+                
                 var author = Mapper.Map<Author>(Model);
                
                 var currentUser = await UserManager.GetUserAsync(User);
@@ -65,6 +67,13 @@ border: 1px solid #ddd;
                     </div>
                 }
             }
+            else
+            {
+            <div class="col-6 p-1">
+                    <a class="btn btn-info form-control btn-sm p-2" id="login" asp-area="Identity" asp-page="/Account/Login">Log in</a>
+            </div>
+            }
+            
 
            
            
