@@ -59,14 +59,14 @@ namespace MusicPortal.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8d308e70-7605-4af0-8db6-6f49a36288a2",
-                            ConcurrencyStamp = "d622d2c4-a2d9-49fe-8f1e-7750eff6c1c2",
+                            Id = "d193cf43-529b-48b7-8a7b-fd3e856cbb5b",
+                            ConcurrencyStamp = "5cbbbbf7-f7e8-41bd-a5d0-1b20fe9741c0",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "81f8193d-caef-4684-93d9-4144e93c2802",
-                            ConcurrencyStamp = "0b4a88ca-68fa-4241-a773-e56bf3f73667",
+                            Id = "3c503951-9b2d-47ca-8b87-a3036bcb304b",
+                            ConcurrencyStamp = "47340007-64d3-43b2-aec5-1d4d25281cb7",
                             Name = "User"
                         });
                 });
@@ -275,6 +275,27 @@ namespace MusicPortal.DAL.Migrations
                     b.ToTable("Musics");
                 });
 
+            modelBuilder.Entity("MusicPortal.DAL.Models.MyMusic", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AuthorId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("MusicsId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("MusicsId");
+
+                    b.ToTable("MyMusics");
+                });
+
             modelBuilder.Entity("MusicPortal.DAL.Models.Author", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -382,6 +403,21 @@ namespace MusicPortal.DAL.Migrations
                         .HasForeignKey("AuthorId");
 
                     b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("MusicPortal.DAL.Models.MyMusic", b =>
+                {
+                    b.HasOne("MusicPortal.DAL.Models.Author", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId");
+
+                    b.HasOne("MusicPortal.DAL.Models.Music", "Musics")
+                        .WithMany()
+                        .HasForeignKey("MusicsId");
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Musics");
                 });
 
             modelBuilder.Entity("MusicPortal.DAL.Models.Author", b =>

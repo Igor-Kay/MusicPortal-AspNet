@@ -15,6 +15,13 @@
             <div class="audio-player">
                 <audio id="audio-player" src="@wc.MusicPath@Model.filesMusic" type="audio/mp3" controls="controls"></audio>
             </div>
+           
+             <div class="col-6 p-1">
+                <a asp-controller="MyMusics" asp-action="AddMymusic" asp-route-id="@Model.Id" class="btn btn-dark form-control btn-sm p-2" style="height:40px">Добавить в плейлист</a>
+            </div>
+        
+
+            
     </section>
     
     </div>

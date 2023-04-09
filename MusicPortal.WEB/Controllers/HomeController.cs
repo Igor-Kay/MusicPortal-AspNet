@@ -62,9 +62,6 @@ namespace MusicPortal.WEB.Controllers
             return View(viewModel);
         }
 
-
-
-
         [HttpPost]
         public IActionResult Index(string? searchString)
         {
@@ -81,6 +78,7 @@ namespace MusicPortal.WEB.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Subcribers()
         {
             var currentUser = await _userManager.GetUserAsync(User);
@@ -89,13 +87,6 @@ namespace MusicPortal.WEB.Controllers
             ViewBag.Subcribers = authors.Subscribe;
             return View();
         }
-
-
-
-
-
-
-
 
         [HttpGet]
         public async Task<IActionResult> MusicPage(Guid id)

@@ -56,10 +56,12 @@ namespace MusicPortal.WEB
 
             services.AddAutoMapper(typeof(MusicProfile));
             services.AddAutoMapper(typeof(AuthorProfile));
+            services.AddAutoMapper(typeof(MyMusicService));
 
             services.AddScoped<IUnitOfWork, EFUnitOfWork>();
             services.AddScoped<IMusicService, MusicServices>();
             services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<IMyMusicInterface, MyMusicService>();
 
             services.AddRazorPages();
             services.AddControllersWithViews();
